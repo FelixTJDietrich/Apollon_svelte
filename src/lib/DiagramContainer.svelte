@@ -27,7 +27,7 @@
 	}
 
 	function onPointerMove(event: PointerEvent) {
-		if (allowInteraction &&  isMoving && event.pointerId === pointerId) {
+		if (allowInteraction && isMoving && event.pointerId === pointerId) {
 			element.style.cursor = 'grabbing';
 			element.scrollLeft -= event.movementX;
 			element.scrollTop -= event.movementY;
@@ -52,7 +52,15 @@
 		zoomBehavior = d3.zoom()
 			.scaleExtent([0.5, 5]) // Set zoom scale limits
 			.on("zoom", handleZoom)
-			.filter(event => event.ctrlKey); // Allow vertical and horizontal scrolling
+			.filter(event => {
+				console.log(event);
+				const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+				if (!isMobile) {
+					return event.ctrlKey
+				} else {
+					return allowInteraction;
+				}
+			}); // Allow vertical and horizontal scrolling
 
 
 		// Apply zoom behavior to the SVG element
@@ -77,7 +85,6 @@
 	class="geDiagramContainer geDiagramBackdrop"
 	style="inset: 0px 0px 0px 200px; touch-action: none; overflow: auto; cursor: default;"
 	bind:this={element}
-	onpointerdown={onPointerDown}
 >
 	<!-- <div
 		class="geBackgroundPage"
@@ -86,6 +93,7 @@
 	<svg
 		style="left: 0px; top: 0px; width: 100%; height: 100%; display: block; min-width: 1362px; min-height: 1254px; position: absolute;"
 		bind:this={svg}
+		onpointerdown={onPointerDown}
 	>
 		<g bind:this={group}>
 			{@render children()}
