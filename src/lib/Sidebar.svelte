@@ -1,6 +1,6 @@
 <div
 	class="geSidebarContainer"
-	style="left: 0px; z-index: 1; overflow: visible; top: 0px; width: 200px; bottom: 0px;"
+	style="left: 0px; z-index: 1; overflow: visible; top: 0px; width: 100px; bottom: 0px;"
 >
 	<div
 		style="position: relative; overflow: hidden auto; left: 0px; top: 0px; right: 0px; box-sizing: border-box; max-height: calc(100% - 52px);"

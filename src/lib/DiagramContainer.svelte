@@ -50,7 +50,7 @@
 	onMount(() => {
 		// Initialize zoom behavior
 		zoomBehavior = d3.zoom()
-			.scaleExtent([0.5, 5]) // Set zoom scale limits
+			.scaleExtent([0.1, 5]) // Set zoom scale limits
 			.on("zoom", handleZoom)
 			.filter(event => {
 				console.log(event);
@@ -82,8 +82,8 @@
 <svelte:window onpointermove={onPointerMove} onpointerup={onPointerUp} />
 
 <div
-	class="geDiagramContainer geDiagramBackdrop"
-	style="inset: 0px 0px 0px 200px; touch-action: none; overflow: auto; cursor: default;"
+	class="geDiagramContainer geDiagramBackdrop prevent-select"
+	style="inset: 0px 0px 0px 100px; touch-action: none; overflow: auto; cursor: default;"
 	bind:this={element}
 >
 	<!-- <div
@@ -100,3 +100,11 @@
 		</g>
 	</svg>
 </div>
+
+<style>
+	.prevent-select {
+		-webkit-user-select: none; /* Safari */
+		-ms-user-select: none; /* IE 10 and IE 11 */
+		user-select: none; /* Standard syntax */
+	}
+</style>
